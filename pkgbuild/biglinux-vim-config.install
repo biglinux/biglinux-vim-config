@@ -9,5 +9,6 @@ pre_install() {
 post_remove() {
     if [ -f /etc/vimrc.bkp ]; then
         cp -f /etc/vimrc.bkp /etc/vimrc
+        rm -f /etc/vimrc.bkp
     fi
 }

@@ -14,5 +14,6 @@ sha256sums=('SKIP')
 install=${pkgname}.install
 
 package() {
+    mkdir -p "${pkgdir}/etc/"
     cp "${srcdir}/${pkgname}/etc/vimrc" "${pkgdir}/etc/vimrc"
 }
