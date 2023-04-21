@@ -1,13 +1,19 @@
-# Make a backup before changing the configuration file
-pre_install() {
-    if [ -f /etc/vimrc ]; then
-        mv /etc/vimrc /etc/vimrc.bkp
+# Create the symbolic link to the new configuration file
+post_install() {
+    if [ ! -L /etc/vimrc ] && [ ! -f /etc/vimrc ]; then
+        ln -s /usr/share/${pkgname}/vimrc /etc/vimrc
     fi
 }
 
-# Create the symbolic link to the new configuration file
-post_install() {
-    ln -s /usr/share/${pkgname}/vimrc /etc/vimrc
+# Make a backup before changing the configuration file
+pre_install() {
+    if [ -f /etc/vimrc ]; then
+        if pacman -Qo /etc/vimrc | grep -q 'vim-runtime'; then
+            echo "/etc/vimrc is owned by vim-runtime. Skipping backup and configuration change."
+        else
+            mv /etc/vimrc /etc/vimrc.bkp
+        fi
+    fi
 }
 
 # Restore the original file
