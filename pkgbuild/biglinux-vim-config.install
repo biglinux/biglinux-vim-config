@@ -1,7 +1,7 @@
 # Make a backup before changing the configuration file
 pre_install() {
     if [ -f /etc/vimrc ]; then
-        cp -f /etc/vimrc /etc/vimrc.bkp
+        mv /etc/vimrc /etc/vimrc.bkp
     fi
 }
 
