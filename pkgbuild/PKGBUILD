@@ -15,31 +15,5 @@ install=${pkgname}.install
 
 package() {
     mkdir -p "${pkgdir}/usr/share/${pkgname}/"
-    cp "${srcdir}/${pkgname}/etc/vimrc" "${pkgdir}/usr/share/${pkgname}/vimrc"
-    rm -f /etc/vimrc
-    ln -s /usr/share/${pkgname}/vimrc /etc/vimrc
-}
-
-# Make a backup before changing the configuration file
-pre_install() {
-    if [ -f /etc/vimrc ]; then
-        if pacman -Qo /etc/vimrc | grep -q 'vim-runtime'; then
-            echo "/etc/vimrc is owned by vim-runtime. Skipping backup and configuration change."
-        else
-            mv /etc/vimrc /etc/vimrc.bkp
-        fi
-    fi
-}
-
-# Restore the original file
-pre_remove() {
-    if [ -f /etc/vimrc.bkp ]; then
-        cp -f /etc/vimrc.bkp /etc/vimrc
-        rm -f /etc/vimrc.bkp
-    fi
-}
-
-# Remove the symbolic link to the configuration file
-post_remove() {
-    rm -f /etc/vimrc
+    cp "${srcdir}/${pkgname}/etc/vimrc" "${pkgdir}/etc/vimrc.new"
 }
