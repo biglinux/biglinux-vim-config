@@ -1,6 +1,3 @@
-# biglinux-vim-config
-
-
 ## Custom vim configuration
 
 ```
