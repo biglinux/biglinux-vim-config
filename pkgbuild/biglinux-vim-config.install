@@ -1,0 +1,13 @@
+# Make a backup before changing the configuration file
+pre_install() {
+    if [ -f /etc/vimrc ]; then
+        cp -f /etc/vimrc /etc/vimrc.bkp
+    fi
+}
+
+# Restore the original file
+post_remove() {
+    if [ -f /etc/vimrc.bkp ]; then
+        cp -f /etc/vimrc.bkp /etc/vimrc
+    fi
+}

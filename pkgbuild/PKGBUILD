@@ -1,0 +1,18 @@
+# Maintainer: Tales A. Mendonça <talesam@gmail.com>
+
+pkgname=biglinux-vim-config
+pkgver=$(date +%y.%m.%d)
+pkgrel=$(date +%H%M)
+pkgdesc="Custom vim configuration"
+arch=('any')
+url="https://github.com/biglinux/$pkgname"
+license=('GPL3')
+depends=('vim')
+provides=("$pkgname")
+source=("git+${url}.git")
+sha256sums=('SKIP')
+install=${pkgname}.install
+
+package() {
+    cp "${srcdir}/${pkgname}/etc/vimrc" "${pkgdir}/vimrc"
+}
