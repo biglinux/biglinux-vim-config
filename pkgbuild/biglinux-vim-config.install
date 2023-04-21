@@ -5,10 +5,20 @@ pre_install() {
     fi
 }
 
+# Create the symbolic link to the new configuration file
+post_install() {
+    ln -s /usr/share/${pkgname}/vimrc /etc/vimrc
+}
+
 # Restore the original file
-post_remove() {
+pre_remove() {
     if [ -f /etc/vimrc.bkp ]; then
         cp -f /etc/vimrc.bkp /etc/vimrc
         rm -f /etc/vimrc.bkp
     fi
+}
+
+# Remove the symbolic link to the configuration file
+post_remove() {
+    rm -f /etc/vimrc
 }
