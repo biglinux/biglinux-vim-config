@@ -10,6 +10,16 @@ post_install() {
     if [ -f /etc/vimrc.new ]; then
         mv -f /etc/vimrc.new /etc/vimrc
     fi
+    # Check if the directory for plugins exists, create if it doesn't
+    if [ ! -d /usr/share/vim/vimfiles/pack/git-plugins/start ]; then
+        mkdir -p /usr/share/vim/vimfiles/pack/git-plugins/start
+    fi  
+    # Clone vim-code-dark repository if it doesn't already exist
+    if [ ! -d /usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark ]; then
+        git clone https://github.com/tomasiser/vim-code-dark /usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark
+    fi
+    # Set appropriate permissions
+    chmod -R a+rx /usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark     
 }
 
 # Restore the original file
@@ -17,4 +27,8 @@ post_remove() {
     if [ -f /etc/vimrc.bkp ]; then
         mv -f /etc/vimrc.bkp /etc/vimrc
     fi
+    # Remove the plugin directory if it is empty
+    if [ -d /usr/share/vim/vimfiles/pack/git-plugins ]; then
+        rm -rf /usr/share/vim/vimfiles/pack/git-plugins
+    fi    
 }

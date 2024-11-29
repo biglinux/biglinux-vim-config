@@ -2,12 +2,18 @@ syntax on
 filetype plugin indent on             
 
 " Search and encoding settings
-set noincsearch                        " Disables incremental search; highlights only on Enter
-set ignorecase                         " Ignores case in search patterns
-set encoding=utf8                      " Sets file encoding to UTF-8
-set laststatus=2                       " Always display the status line at the bottom
-set hlsearch                           " Highlights all matches in search results
-set showmatch 
+
+set noincsearch                        " Disables incremental search; matches are only highlighted after pressing Enter
+set ignorecase                         " Ignores case in search patterns for easier matching
+set encoding=utf8                      " Sets file encoding to UTF-8 for better compatibility
+set laststatus=2                       " Always displays the status line at the bottom of the screen
+set hlsearch                           " Highlights all matches for search results to improve visibility
+set showmatch                          " Briefly highlights matching parentheses, brackets, or braces
+set cursorline                         " Highlights the entire line where the cursor is positioned for better focus
+set nocompatible                       " Ensures Vim is not in Vi mode
+
+"Color Scheme
+colorscheme codedark
 
 " Enables mouse support if available
 if has("mouse")
