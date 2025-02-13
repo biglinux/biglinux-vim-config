@@ -9,14 +9,7 @@ pre_install() {
 post_install() {
     if [ -f /etc/vimrc.new ]; then
         mv -f /etc/vimrc.new /etc/vimrc
-    fi
-    # Check if the directory for plugins exists, create if it doesn't
-    if [ ! -d /usr/share/vim/vimfiles/pack/git-plugins/start ]; then
-        mkdir -p /usr/share/vim/vimfiles/pack/git-plugins/start
-        git clone https://github.com/tomasiser/vim-code-dark /usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark
     fi  
-    # Set appropriate permissions
-    chmod -R a+rx /usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark     
 }
 
 # Restore the original file
