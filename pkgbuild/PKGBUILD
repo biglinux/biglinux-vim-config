@@ -1,4 +1,5 @@
 # Maintainer: Tales A. Mendonça <talesam@gmail.com>
+# Maintainer: Leonardo Berbert <leo4berbert@gmail.com>
 
 pkgname=biglinux-vim-config
 pkgver=$(date +%y.%m.%d)
@@ -7,7 +8,7 @@ pkgdesc="Custom vim configuration"
 arch=('any')
 url="https://github.com/biglinux/$pkgname"
 license=('GPL3')
-depends=('vim')
+depends=('vim' 'git')
 provides=("$pkgname")
 source=("git+${url}.git")
 sha256sums=('SKIP')
@@ -16,4 +17,13 @@ install=${pkgname}.install
 package() {
     mkdir -p "${pkgdir}/etc/"
     cp "${srcdir}/${pkgname}/etc/vimrc" "${pkgdir}/etc/vimrc.new"
+
+    mkdir -p "${pkgdir}/usr/share/vim/vimfiles/pack/git-plugins/start"
+    git clone https://github.com/tomasiser/vim-code-dark "${pkgdir}/usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark"
+
+    mkdir -p "${pkgdir}/usr/share/vim/vimfiles/colors"
+    cp "${pkgdir}/usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark/colors/codedark.vim" \
+       "${pkgdir}/usr/share/vim/vimfiles/colors/codedark.vim"
+
+    chmod -R a+rx "${pkgdir}/usr/share/vim/vimfiles/pack/git-plugins/start/vim-code-dark"
 }
